@@ -1,15 +1,126 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
-generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
-}
-
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  PACIENTE
+  PROFISSIONAL
+  ADMIN
+}
+
+enum StatusConsulta {
+  AGENDADA
+  CONFIRMADA
+  CANCELADA
+  REALIZADA
+  NAO_COMPARECEU
+}
+
+enum DiaSemana {
+  DOMINGO
+  SEGUNDA
+  TERCA
+  QUARTA
+  QUINTA
+  SEXTA
+  SABADO
+}
+
+
+model Usuario {
+  id           Int           @id @default(autoincrement())
+  email        String        @unique
+  senha        String
+  role         Role          @default(PACIENTE)
+  createdAt    DateTime      @default(now())
+  
+  paciente     Paciente?
+  profissional Profissional?
+}
+
+model Paciente {
+  id        Int      @id @default(autoincrement())
+  nome      String
+  telefone  String
+  
+  usuarioId Int      @unique
+  usuario   Usuario  @relation(fields: [usuarioId], references: [id])
+
+  consultas Consulta[]
+}
+
+model Profissional {
+  id                 Int      @id @default(autoincrement())
+  nome               String
+  especialidade      String
+  intervaloPadraoMin Int      @default(30)
+  
+  usuarioId          Int      @unique
+  usuario            Usuario  @relation(fields: [usuarioId], references: [id])
+
+  consultas          Consulta[]
+  janelasAtendimento JanelaAtendimento[]
+  bloqueios          Bloqueio[]
+  locais             ProfissionalLocal[]
+}
+
+model Local {
+  id            Int                 @id @default(autoincrement())
+  nome          String
+  endereco      String
+  
+  consultas     Consulta[]
+  profissionais ProfissionalLocal[]
+}
+
+model ProfissionalLocal {
+  profissionalId Int
+  localId        Int
+  
+  profissional   Profissional @relation(fields: [profissionalId], references: [id])
+  local          Local        @relation(fields: [localId], references: [id])
+
+  @@id([profissionalId, localId])
+}
+
+model JanelaAtendimento {
+  id             Int       @id @default(autoincrement())
+  diaSemana      DiaSemana
+  horaInicio     DateTime  @db.Time
+  horaFim        DateTime  @db.Time
+  
+  profissionalId Int
+  profissional   Profissional @relation(fields: [profissionalId], references: [id])
+}
+
+model Bloqueio {
+  id             Int      @id @default(autoincrement())
+  dataInicio     DateTime
+  dataFim        DateTime
+  motivo         String?
+  
+  profissionalId Int
+  profissional   Profissional @relation(fields: [profissionalId], references: [id])
+}
+
+model Consulta {
+  id             Int            @id @default(autoincrement())
+  dataHoraInicio DateTime
+  dataHoraFim    DateTime
+  status         StatusConsulta @default(AGENDADA)
+  observacoes    String?        @db.Text
+
+  pacienteId     Int
+  paciente       Paciente     @relation(fields: [pacienteId], references: [id])
+
+  profissionalId Int
+  profissional   Profissional @relation(fields: [profissionalId], references: [id])
+
+  localId        Int
+  local          Local        @relation(fields: [localId], references: [id])
 }
