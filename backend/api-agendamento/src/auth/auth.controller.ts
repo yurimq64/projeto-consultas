@@ -7,14 +7,12 @@ export class AuthController {
 
   @Post('login')
   async login(@Body() body: any) {
-    // 1. Verifica se a senha bate
     const user = await this.authService.validateUser(body.email, body.senha);
     
     if (!user) {
       throw new UnauthorizedException('Email ou senha incorretos');
     }
 
-    // 2. Se bateu, entrega o token
     return this.authService.login(user);
   }
 
