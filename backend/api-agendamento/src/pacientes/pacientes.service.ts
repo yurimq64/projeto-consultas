@@ -16,7 +16,15 @@ export class PacientesService {
 
   async findAll() {
     return this.prisma.paciente.findMany({
-      include: { usuario: true },
+      include: { 
+        usuario: {
+          select: {
+            id: true,
+            email: true,
+            role: true,
+          }
+        } 
+      }, 
     });
   }
 
