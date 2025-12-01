@@ -1,14 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { CreateLocaiDto } from './dto/create-locai.dto';
-import { UpdateLocaiDto } from './dto/update-locai.dto';
+import { CreateLocalDto } from './dto/create-local.dto';
+import { UpdateLocalDto } from './dto/update-local.dto';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class LocaisService {
-  
   constructor(private prisma: PrismaService) {}
 
-  async create(data: CreateLocaiDto) {
+  async create(data: CreateLocalDto) {
     return this.prisma.local.create({
       data,
     });
@@ -19,14 +18,21 @@ export class LocaisService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} local`;
+    return this.prisma.local.findUnique({
+      where: { id },
+    });
   }
 
-  update(id: number, updateLocaiDto: UpdateLocaiDto) {
-    return `This action updates a #${id} local`;
+  update(id: number, data: UpdateLocalDto) {
+    return this.prisma.local.update({
+      where: { id },
+      data,
+    });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} local`;
+    return this.prisma.local.delete({
+      where: { id },
+    });
   }
 }
