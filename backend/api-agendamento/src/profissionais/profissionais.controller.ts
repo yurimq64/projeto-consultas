@@ -6,12 +6,15 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { ProfissionaisService } from './profissionais.service';
 import { CreateProfissionalDto } from './dto/create-profissionai.dto';
 import { UpdateProfissionaiDto } from './dto/update-profissional.dto';
 import { AssociarLocalDto } from './dto/associar-local.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('profissionais')
 export class ProfissionaisController {
   constructor(private readonly profissionaisService: ProfissionaisService) {}
