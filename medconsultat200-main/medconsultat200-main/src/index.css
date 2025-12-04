@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    --background: 210 20% 98%;
+    --foreground: 210 20% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 210 20% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 20% 10%;
+
+    --primary: 173 80% 26%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 173 30% 94%;
+    --secondary-foreground: 173 80% 20%;
+
+    --muted: 210 15% 95%;
+    --muted-foreground: 210 10% 45%;
+
+    --accent: 173 40% 90%;
+    --accent-foreground: 173 80% 20%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    --border: 210 20% 90%;
+    --input: 210 20% 90%;
+    --ring: 173 80% 26%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 173 80% 26%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 173 40% 95%;
+    --sidebar-accent-foreground: 173 80% 20%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 173 80% 26%;
+  }
+
+  .dark {
+    --background: 210 20% 8%;
+    --foreground: 210 15% 95%;
+
+    --card: 210 20% 12%;
+    --card-foreground: 210 15% 95%;
+
+    --popover: 210 20% 12%;
+    --popover-foreground: 210 15% 95%;
+
+    --primary: 173 70% 40%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 173 30% 15%;
+    --secondary-foreground: 173 50% 80%;
+
+    --muted: 210 15% 18%;
+    --muted-foreground: 210 10% 60%;
+
+    --accent: 173 30% 20%;
+    --accent-foreground: 173 50% 85%;
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 210 15% 20%;
+    --input: 210 15% 20%;
+    --ring: 173 70% 40%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  .gradient-primary {
+    background: linear-gradient(135deg, hsl(173 80% 26%) 0%, hsl(173 70% 35%) 100%);
+  }
+
+  .gradient-card {
+    background: linear-gradient(180deg, hsl(var(--card)) 0%, hsl(210 20% 96%) 100%);
+  }
+
+  .shadow-soft {
+    box-shadow: 0 2px 8px -2px hsl(210 20% 10% / 0.08), 0 4px 16px -4px hsl(210 20% 10% / 0.12);
+  }
+
+  .shadow-glow {
+    box-shadow: 0 0 20px -5px hsl(173 80% 26% / 0.3);
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.4s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.2s ease-out;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
