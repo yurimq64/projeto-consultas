@@ -20,10 +20,10 @@ export const mockPacientes: Paciente[] = [
 ];
 
 export const mockProfissionais: Profissional[] = [
-  { id: 1, nome: 'Dr. Carlos Mendes', especialidade: 'Cardiologia', usuarioId: 2 },
-  { id: 2, nome: 'Dra. Fernanda Lima', especialidade: 'Dermatologia', usuarioId: 6 },
-  { id: 3, nome: 'Dr. Roberto Alves', especialidade: 'Ortopedia', usuarioId: 7 },
-  { id: 4, nome: 'Dra. Patricia Souza', especialidade: 'Pediatria', usuarioId: 8 },
+  { id: 1, nome: 'Dr. Carlos Mendes', especialidade: 'Cardiologia', crm: 'CRM/SP 123456', usuarioId: 2 },
+  { id: 2, nome: 'Dra. Fernanda Lima', especialidade: 'Dermatologia', crm: 'CRM/SP 654321', usuarioId: 6 },
+  { id: 3, nome: 'Dr. Roberto Alves', especialidade: 'Ortopedia', crm: 'CRM/RJ 987654', usuarioId: 7 },
+  { id: 4, nome: 'Dra. Patricia Souza', especialidade: 'Pediatria', crm: 'CRM/MG 456789', usuarioId: 8 },
 ];
 
 export const mockLocais: Local[] = [
